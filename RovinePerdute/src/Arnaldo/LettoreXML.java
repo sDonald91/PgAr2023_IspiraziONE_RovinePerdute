@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class LettoreXML {
 
-    private static String FILE_CITTA;
+    public static String FILE_CITTA;
 
     public ArrayList<Citta> leggiCitta() {
 
