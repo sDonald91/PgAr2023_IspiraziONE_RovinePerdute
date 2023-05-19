@@ -1,6 +1,7 @@
 package Arnaldo;
 
-import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 
@@ -12,15 +13,20 @@ public class LettoreXML {
 
     }
 
+    /**
+     * Trova il percorso assoluto della classe LettoreXML.
+     * In questo modo, da qualunque parte si esegua il codice si riuscirà sempre a trovare il percorso corretto e, quindi, ad orientarsi all'interno delle cartelle del progetto.
+     */
     public static void nonCapiscoPercheJavaRendaCosiComplicatoPrendereIlPercorsoAssolutoDelFileCheSiStaEseguendo() {
-        try{
-            String percorso = LettoreXML.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-            String percorsoDecodificato = URLDecoder.decode(percorso, "UTF-8");
-            FILE_CITTA = percorsoDecodificato;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        URL percorsoDiQuestoFile = LettoreXML.class.getResource("LettoreXML.class");
+        if (!"file".equalsIgnoreCase(percorsoDiQuestoFile.getProtocol())) {
+            throw new IllegalStateException("La classe 'lettoreXML' non è contenuta in alcun file");
         }
-
+        try {
+            FILE_CITTA = URLDecoder.decode(percorsoDiQuestoFile.getPath(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }
