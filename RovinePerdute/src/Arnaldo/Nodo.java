@@ -11,12 +11,20 @@ public class Nodo {
         this.citta = citta;
     }
 
+    public Nodo(Citta citta) {
+        this.citta = citta;
+    }
+
     public HashMap<Nodo, Integer> getArchi() {
         return archi;
     }
 
     public Citta getCitta() {
         return citta;
+    }
+
+    public void setArchi(HashMap<Nodo, Integer> archi) {
+        this.archi = archi;
     }
 
     public double pesoArco(Nodo nodo) {

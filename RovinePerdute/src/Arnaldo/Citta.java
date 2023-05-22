@@ -6,10 +6,10 @@ public class Citta {
     private int ID;
     private String nome;
 
-    public Citta(Coordinate coordinate, int ID, String nome){
-        this.coordinate = coordinate;
+    public Citta( int ID, String nome, Coordinate coordinate){
         this.ID = ID;
         this.nome = nome;
+        this.coordinate = coordinate;
     }
 
     public int getId() {
