@@ -66,7 +66,7 @@ public class LettoreXML {
         }
 
         try {
-            while(xmlr.hasText()) {
+            while (xmlr.hasNext()) {
                 if (xmlr.getEventType() == XMLStreamReader.START_ELEMENT) {
                     tag = xmlr.getLocalName();
 
@@ -79,7 +79,7 @@ public class LettoreXML {
                             h = Integer.parseInt(xmlr.getAttributeValue(4));
                             coordinate = new Coordinate(x, y, h);
                             cittaDaInserire = new Citta(id, nome, coordinate);
-                            listaCitta.put(cittaDaInserire, null);
+                            listaCitta.put(cittaDaInserire, new ArrayList<Integer>());
                             break;
 
                         case "link":
@@ -93,7 +93,8 @@ public class LettoreXML {
                 xmlr.next();
             }
         }
-        catch (Exception e) {
+        catch (XMLStreamException e) {
+            System.out.println(e.getMessage());
         }
 
         return listaCitta;
