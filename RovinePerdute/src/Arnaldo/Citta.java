@@ -24,12 +24,13 @@ public class Citta {
         return coordinate;
     }
 
-    
     public double distanza(Citta citta) {
-        return 0;
+        double distanza = this.coordinate.calcolaDistanza(citta.coordinate);
+        return distanza;
     }
 
-    public int dislivello(Citta citta) {
-        return 0;
+    public long dislivello(Citta citta) {
+        long dislivello = this.coordinate.calcolaDislivello(citta.coordinate);
+        return dislivello;
     }
 }  

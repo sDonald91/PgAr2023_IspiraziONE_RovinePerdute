@@ -27,7 +27,7 @@ public class Coordinate {
         return Math.sqrt(Math.pow(x - coordinate.getX(), 2) + Math.pow(y - coordinate.getY(), 2));
     }
     
-    public double calcolaDislivello(Coordinate coordinate) {
+    public long calcolaDislivello(Coordinate coordinate) {
         return Math.abs(h - coordinate.getH());
     }
         

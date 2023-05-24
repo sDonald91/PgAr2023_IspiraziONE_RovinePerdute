@@ -28,14 +28,24 @@ public class Nodo {
     }
 
     public double pesoArco(Nodo nodo) {
-
+        double pesoArco = archi.get(nodo);
+        return pesoArco;
     }
 
     public boolean equals(Nodo nodo) {
-
+        if (this.citta.equals(nodo.getCitta()) && this.archi.equals(nodo.getArchi())) {    //metodi equals per città da definire?
+            return true;
+        }
+        return false;
     }
 
     public boolean equals(String nome) {
+
+        if (this.citta.getNome().equals(nome)) {
+            return true;
+        }
+
+        return false;
 
     }
 }
