@@ -10,11 +10,20 @@ public class Nodo {
     private HashMap<Nodo, Double> archi = new HashMap<>();
     private Citta citta;
 
+    /**
+     * Costruttore 1
+     * @param archi
+     * @param citta
+     */
     public Nodo (HashMap<Nodo, Double> archi, Citta citta) {
         this.archi = archi;
         this.citta = citta;
     }
 
+    /**
+     * Costruttore con la sola città
+     * @param citta corrispondente al nodo
+     */
     public Nodo(Citta citta) {
         this.citta = citta;
     }
@@ -27,12 +36,16 @@ public class Nodo {
         this.archi = archi;
     }
 
-    public void aggiungiArco (Nodo nodo , double peso) {
-        archi.put(nodo, peso);
-    }
-
     public Citta getCitta() {
         return citta;
+    }
+    /**
+    * Aggiunge un arco con il corrispettivo peso all'elenco dei collegamenti
+    * @param nodo
+    * @param peso
+    */
+    public void aggiungiArco (Nodo nodo , double peso) {
+        archi.put(nodo, peso);
     }
 
     /**
@@ -45,6 +58,11 @@ public class Nodo {
         return pesoArco;
     }
 
+    /**
+     * Equals tra due nodi
+     * @param nodo
+     * @return
+     */
     public boolean equals(Nodo nodo) {
         if (this.citta.equals(nodo.getCitta()) && this.archi.equals(nodo.getArchi())) {    //metodi equals per città da definire?
             return true;
