@@ -6,15 +6,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+/**
+ * Classe static contenente metodi per la lettura dei dati dai file XML
+ */
 public class LettoreXML {
 
-    public static final String NOME_FILE_CITTA = "PgAr_Map_5.xml";
+    public static final String NOME_FILE_CITTA = "PgAr_Map_12.xml";
     public static String percorsoFileCitta;
 
     /**
@@ -45,11 +47,15 @@ public class LettoreXML {
         percorsoFileCitta = percorso.substring(0, percorso.lastIndexOf("/")) + "/../../file_xml/input/" + NOME_FILE_CITTA;
     }
 
-    public static HashMap<Citta, ArrayList<Integer>> leggiCitta() {
-        HashMap<Citta, ArrayList<Integer>> listaCitta = new HashMap<Citta,ArrayList<Integer>>();
+    /**
+     * Restituisce i collegamenti di ogni città con le altre
+     * @return ArrayList<ArratList<Integer>> collegamenti
+     */
+    public static ArrayList<ArrayList<Integer>> leggiCitta() {
+        ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
 
         String nome = "";
-        int id = 0, x, y, h;
+        int id = 0, x, y, h, contatore = -1;
         Coordinate coordinate = null;
         Citta cittaDaInserire = null;
 
@@ -79,11 +85,13 @@ public class LettoreXML {
                             h = Integer.parseInt(xmlr.getAttributeValue(4));
                             coordinate = new Coordinate(x, y, h);
                             cittaDaInserire = new Citta(id, nome, coordinate);
-                            listaCitta.put(cittaDaInserire, new ArrayList<Integer>());
+                            GestorePercorso.aggiungiCitta(cittaDaInserire);
+                            listaCollegamenti.add(new ArrayList<>());
+                            contatore++;
                             break;
 
                         case "link":
-                            listaCitta.get(cittaDaInserire).add(Integer.parseInt(xmlr.getAttributeValue(0)));
+                            listaCollegamenti.get(contatore).add(Integer.parseInt(xmlr.getAttributeValue(0)));
                             break;
 
                         default:
@@ -97,9 +105,7 @@ public class LettoreXML {
             System.out.println(e.getMessage());
         }
 
-        return listaCitta;
+        return listaCollegamenti;
     }
-
-
 
 }

@@ -2,11 +2,15 @@ package Arnaldo;
 
 import java.util.HashMap;
 
+/**
+ * Classe istanziabile per rappresentare i nodi dell'albero
+ */
 public class Nodo {
-    private HashMap<Nodo, Integer> archi;
+
+    private HashMap<Nodo, Double> archi = new HashMap<>();
     private Citta citta;
 
-    public Nodo (HashMap<Nodo, Integer> archi, Citta citta) {
+    public Nodo (HashMap<Nodo, Double> archi, Citta citta) {
         this.archi = archi;
         this.citta = citta;
     }
@@ -15,18 +19,27 @@ public class Nodo {
         this.citta = citta;
     }
 
-    public HashMap<Nodo, Integer> getArchi() {
+    public HashMap<Nodo, Double> getArchi() {
         return archi;
+    }
+
+    public void setArchi(HashMap<Nodo, Double> archi) {
+        this.archi = archi;
+    }
+
+    public void aggiungiArco (Nodo nodo , double peso) {
+        archi.put(nodo, peso);
     }
 
     public Citta getCitta() {
         return citta;
     }
 
-    public void setArchi(HashMap<Nodo, Integer> archi) {
-        this.archi = archi;
-    }
-
+    /**
+     * Restituisce il peso dell'arco che collega il nodo corrente a quello interessato
+     * @param nodo
+     * @return Il peso dell'arco
+     */
     public double pesoArco(Nodo nodo) {
         double pesoArco = archi.get(nodo);
         return pesoArco;
@@ -40,12 +53,9 @@ public class Nodo {
     }
 
     public boolean equals(String nome) {
-
         if (this.citta.getNome().equals(nome)) {
             return true;
         }
-
         return false;
-
     }
 }

@@ -1,5 +1,8 @@
 package Arnaldo;
 
+/**
+ * Classe istanziabile per rappresentare le città
+ */
 public class Citta {
 
     private Coordinate coordinate;
@@ -29,8 +32,8 @@ public class Citta {
         return distanza;
     }
 
-    public long dislivello(Citta citta) {
-        long dislivello = this.coordinate.calcolaDislivello(citta.coordinate);
+    public double dislivello(Citta citta) {
+        double dislivello = this.coordinate.calcolaDislivello(citta.coordinate);
         return dislivello;
     }
 }  
