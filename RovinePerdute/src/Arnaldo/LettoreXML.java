@@ -24,33 +24,16 @@ public class LettoreXML {
     }
 
     /**
-     * Trova il percorso assoluto del file LettoreXML.class. 
-     * In questo modo, da qualunque parte si esegua il codice si riuscirà sempre a trovare il percorso corretto e, quindi, ad orientarsi all'interno delle cartelle del progetto.
-     */
-    public static String nonCapiscoPercheJavaRendaCosiComplicatoPrendereIlPercorsoAssolutoDelFileCheSiStaEseguendo() {
-        //URL percorsoDiQuestoFile = LettoreXML.class.getResource("LettoreXML.class");
-
-        URL percorsoDiQuestoFile = LettoreXML.class.getProtectionDomain().getCodeSource().getLocation();
-
-        if (!"file".equalsIgnoreCase(percorsoDiQuestoFile.getProtocol())) {
-            throw new IllegalStateException("La classe 'lettoreXML' non è contenuta in alcun file");
-        }
-
-        try {
-            return URLDecoder.decode(percorsoDiQuestoFile.getPath(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }
-
-    /**
      * Assegna alla variabile "percorsoFileCitta" il valore del percorso del file delle città che si vuole leggere
      */
     public static void impostaPercorsoFileCitta() {
-        String percorso = nonCapiscoPercheJavaRendaCosiComplicatoPrendereIlPercorsoAssolutoDelFileCheSiStaEseguendo();
-        percorsoFileCitta = percorso.substring(0, percorso.lastIndexOf("/")) + "/../../file_xml/input/" + NOME_FILE_CITTA;
+        String percorso = System.getProperty("user.dir");
+        if (System.getProperty("os.name").equals("Windows")) {
+            percorsoFileCitta = percorso + "/RovinePerdute/file_xml/input/" + NOME_FILE_CITTA;
+        }
+        else {
+            percorsoFileCitta = percorso + "/file_xml/input/" + NOME_FILE_CITTA;
+        }
     }
 
     /**

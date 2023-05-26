@@ -1,12 +1,10 @@
 package Arnaldo;
 
-import java.io.File;
-import java.util.ArrayList;
-
 public class MainRovinePerdute {
     public static void main(String[] args) {
         LettoreXML.impostaPercorsoFileCitta();
         LettoreXML.leggiCitta();
+        System.out.println(LettoreXML.getPercorsoFileCitta());
 
         Squadra tonatiuh = new Squadra("Tonatiuh");
         Squadra metztli = new Squadra("Metztli");
@@ -22,6 +20,6 @@ public class MainRovinePerdute {
         System.out.println("\n");
         for (Nodo nodo : metztli.getCampoBase().getArchi().keySet()) {
             System.out.println(nodo.getCitta().getNome() + ": " + metztli.getCampoBase().getArchi().get(nodo));
-        } */
+        }
     }
 }
