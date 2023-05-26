@@ -28,11 +28,12 @@ public class LettoreXML {
      */
     public static void impostaPercorsoFileCitta() {
         String percorso = System.getProperty("user.dir");
-        if (System.getProperty("os.name").equals("Windows")) {
-            percorsoFileCitta = percorso + "/RovinePerdute/file_xml/input/" + NOME_FILE_CITTA;
+        if (System.getProperty("os.name").equals("Linux")) {
+            percorsoFileCitta = percorso + "/file_xml/input/" + NOME_FILE_CITTA;
         }
         else {
-            percorsoFileCitta = percorso + "/file_xml/input/" + NOME_FILE_CITTA;
+            percorsoFileCitta = percorso + "/RovinePerdute/file_xml/input/" + NOME_FILE_CITTA;
+            
         }
     }
 

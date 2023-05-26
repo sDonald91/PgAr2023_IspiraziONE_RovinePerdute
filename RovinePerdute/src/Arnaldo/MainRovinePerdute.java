@@ -2,6 +2,10 @@ package Arnaldo;
 
 public class MainRovinePerdute {
     public static void main(String[] args) {
+
+        System.out.println(System.getProperty("os.name"));
+
+
         LettoreXML.impostaPercorsoFileCitta();
         LettoreXML.leggiCitta();
         System.out.println(LettoreXML.getPercorsoFileCitta());
