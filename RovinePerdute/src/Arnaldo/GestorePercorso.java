@@ -7,10 +7,9 @@ import java.util.HashMap;
  * Classe static contenente metodi per gestire i percorsi
  */
 public class GestorePercorso {
-    public static Nodo CAMPO_BASE;
     private static ArrayList<Citta> listaCitta = new ArrayList<>();
     private static ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
-    private static ArrayList<Nodo> listaNodi = new ArrayList<>();
+    
 
     public static ArrayList<Citta> getListaCitta() {
         return listaCitta;
@@ -28,13 +27,6 @@ public class GestorePercorso {
         GestorePercorso.listaCollegamenti = listaCollegamenti;
     }
 
-    public static ArrayList<Nodo> getListaNodi(){
-        return listaNodi;
-    }
-
-    public static void setListaNodi(ArrayList<Nodo> listaNodi) {
-        GestorePercorso.listaNodi = listaNodi;
-    }
 
     /**
      * Aggiunge una città alla lista delle città dell'albero
@@ -43,43 +35,58 @@ public class GestorePercorso {
     public static void aggiungiCitta(Citta citta) {
         listaCitta.add(citta);
     }
+     
     
-    /**
-     * Assegna il primo nodo alla costante CAMPO_BASE
-     */
-    public static void assegnaCampoBase() {
-        CAMPO_BASE = listaNodi.get(0);
-    }
-    
-    /**
-     * Crea tutti i nodi associati alle città
-     */
-    public static void riempiListaNodi() {
-        for (Citta citta : listaCitta) {
-            listaNodi.add(new Nodo(citta));
-        }
-    }
 
-    public Citta[] calcolaPercorsoOttimale (Squadra squadra) {    
-        HashMap<Nodo, HashMap<Nodo, Integer>> distanzeMinimeDaOrigine = new HashMap<>();
-        double distanza;
+    public String[] calcolaPercorsoOttimale (Squadra squadra) {    
+        HashMap<Nodo, HashMap<Nodo, Double>> distanzeMinimeDaOrigine = new HashMap<>();
+        double distanzaTotale = 0, calc_dist;
+        String nomeCitta = "";
+        Nodo nodoIteratore = squadra.getCampoBase();
+        ArrayList<String> percorsoOttimale = new ArrayList<>();
+
+        ArrayList<Nodo> listaNodi = new ArrayList<>();        
+        listaNodi.addAll(squadra.getListaNodi());
 
         for (Nodo nodo : listaNodi) {
             distanzeMinimeDaOrigine.put(nodo, new HashMap<>(1));
-            distanzeMinimeDaOrigine.get(nodo).put(nodo.getArchi().keySet().iterator().next(), -1); // Viene preso il primo nodo vicino del nodo che stiamo inserendo, non ci importa quale nodo è
+            distanzeMinimeDaOrigine.get(nodo).put(nodo.getArchi().keySet().iterator().next(), Double.MAX_VALUE); // Viene preso il primo nodo vicino del nodo che stiamo inserendo, non ci importa quale nodo è
         }
 
-        for (Nodo nodo : listaNodi) {
-            Nodo nodoVicino = distanzeMinimeDaOrigine.get(nodo).keySet().iterator().next();
-            double distanzaOrigine = distanzeMinimeDaOrigine.get(nodo).get(nodoVicino);
+        /* Si itera su tutti i nodi in Q, prendendo di volta in volta il nodo T che, rispetto agli altri nodi di Q, ha distanza minore
+        dall’origine. La precedenza è importantissima per il principio di ottimalità */
+        while (listaNodi.size() > 0) {
+            for (Nodo nodo : squadra.getListaNodi()) {
+                for (Nodo nodoVicino: nodo.getArchi().keySet()) {
+                    double distanzaOrigine = distanzeMinimeDaOrigine.get(nodo).get(nodoVicino);
+                    calc_dist = distanzaOrigine + nodo.pesoArco(nodoVicino);
 
-            distanza = distanzaOrigine + nodo.pesoArco(nodoVicino);
-
-            // Devi continuare da qui
-
+                    if (calc_dist < distanzeMinimeDaOrigine.get(nodo).get(nodoVicino)) {  // se calc_dist è minore della distanza presente in tabella per il nodo N
+                        distanzeMinimeDaOrigine.get(nodo).clear();
+                        distanzeMinimeDaOrigine.get(nodo).put(nodoVicino, calc_dist);
+                        //allora nella riga N della tabella si scrivono calc_dist come distanza e T come nodo precedente
+                    }
+                }
+                listaNodi.remove(nodo); // Terminata l’iterazione, T viene rimosso da listaNodi. Quando listaNodi è vuota l’algoritmo termina.
+            }
         }
 
-        return null;
+        percorsoOttimale.add(squadra.getCampoBase().getCitta().getNome());
+
+        while(!nomeCitta.equalsIgnoreCase("Rovine Perdute")) {
+            Nodo nodoProssimo = distanzeMinimeDaOrigine.get(nodoIteratore).keySet().iterator().next();
+            nomeCitta = nodoProssimo.getCitta().getNome();
+            percorsoOttimale.add(nomeCitta);
+           
+            double distanzaParziale = distanzeMinimeDaOrigine.get(nodoIteratore).values().iterator().next();
+            distanzaTotale += distanzaParziale;
+
+            nodoIteratore = nodoProssimo;
+        }
+
+        squadra.setCarburanteConsumato(distanzaTotale);
+        
+        return percorsoOttimale.toArray(new String[percorsoOttimale.size()]);
     }
 
 }

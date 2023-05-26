@@ -10,6 +10,7 @@ public class Squadra {
     private String nome;
     private Nodo campoBase;
     private double carburanteConsumato;
+    private ArrayList<Nodo> listaNodi = new ArrayList<>();
     
     public Squadra(String nome){
         this.nome = nome;
@@ -31,12 +32,29 @@ public class Squadra {
         this.carburanteConsumato = carburanteConsumato;   
     }
 
-    public void generaAlbero(ArrayList<Nodo> nodi, ArrayList<ArrayList<Integer>> collegamenti) {
-        campoBase = nodi.get(0);
+    public ArrayList<Nodo> getListaNodi(){
+        return listaNodi;
+    }
 
-        for (Nodo nodo : nodi) {
-            for (Integer collegamento : collegamenti.get(nodi.indexOf(nodo))) {
-                nodo.aggiungiArco(nodi.get(collegamento), pesoCollegamento(nodo, nodi.get(collegamento)));
+    public void setListaNodi(ArrayList<Nodo> listaNodi) {
+        this.listaNodi = listaNodi;
+    }
+
+    /**
+     * Crea tutti i nodi associati alle città
+     */
+    public void riempiListaNodi() {
+        for (Citta citta : GestorePercorso.getListaCitta()) {
+            listaNodi.add(new Nodo(citta));
+        }
+    }
+
+    public void generaAlbero( ArrayList<ArrayList<Integer>> collegamenti) {
+        campoBase = listaNodi.get(0);
+
+        for (Nodo nodo : listaNodi) {
+            for (Integer collegamento : collegamenti.get(listaNodi.indexOf(nodo))) {
+                nodo.aggiungiArco(listaNodi.get(collegamento), pesoCollegamento(nodo, listaNodi.get(collegamento)));
             }
         }
     }

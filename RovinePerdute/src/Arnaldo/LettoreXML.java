@@ -2,9 +2,6 @@ package Arnaldo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import javax.xml.stream.XMLInputFactory;

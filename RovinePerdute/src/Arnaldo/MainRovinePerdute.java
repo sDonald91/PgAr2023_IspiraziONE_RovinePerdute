@@ -5,15 +5,16 @@ public class MainRovinePerdute {
 
         LettoreXML.impostaPercorsoFileCitta();
         LettoreXML.leggiCitta();
-        GestorePercorso.riempiListaNodi();
+        
         System.out.println(LettoreXML.getPercorsoFileCitta());
 
         Squadra tonatiuh = new Squadra("Tonatiuh");
         Squadra metztli = new Squadra("Metztli");
+        tonatiuh.riempiListaNodi();
+        metztli.riempiListaNodi();
 
-        GestorePercorso.assegnaCampoBase();
-        tonatiuh.generaAlbero(GestorePercorso.getListaNodi(), GestorePercorso.getListaCollegamenti());
-        metztli.generaAlbero(GestorePercorso.getListaNodi(), GestorePercorso.getListaCollegamenti());
+        tonatiuh.generaAlbero(GestorePercorso.getListaCollegamenti());
+        metztli.generaAlbero(GestorePercorso.getListaCollegamenti());
 
          System.out.println("\n");
 
