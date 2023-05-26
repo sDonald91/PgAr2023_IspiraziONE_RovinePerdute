@@ -3,18 +3,17 @@ package Arnaldo;
 public class MainRovinePerdute {
     public static void main(String[] args) {
 
-        System.out.println(System.getProperty("os.name"));
-
-
         LettoreXML.impostaPercorsoFileCitta();
         LettoreXML.leggiCitta();
+        GestorePercorso.riempiListaNodi();
         System.out.println(LettoreXML.getPercorsoFileCitta());
 
         Squadra tonatiuh = new Squadra("Tonatiuh");
         Squadra metztli = new Squadra("Metztli");
-    
-        tonatiuh.generaAlbero(GestorePercorso.getListaCollegamenti());
-        metztli.generaAlbero(GestorePercorso.getListaCollegamenti());
+
+        GestorePercorso.assegnaCampoBase();
+        tonatiuh.generaAlbero(GestorePercorso.getListaNodi(), GestorePercorso.getListaCollegamenti());
+        metztli.generaAlbero(GestorePercorso.getListaNodi(), GestorePercorso.getListaCollegamenti());
 
          System.out.println("\n");
 

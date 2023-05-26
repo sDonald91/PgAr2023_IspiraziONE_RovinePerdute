@@ -41,7 +41,6 @@ public class LettoreXML {
      * Legge il file XML e riempie una lista di città e una con i collegamenti presenti tra esse
      */
     public static void leggiCitta() {
-        //ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
 
         String nome = "";
         int id = 0, x, y, h, contatore = -1;
@@ -94,7 +93,6 @@ public class LettoreXML {
             System.out.println(e.getMessage());
         }
 
-        //return listaCollegamenti;
     }
 
 }

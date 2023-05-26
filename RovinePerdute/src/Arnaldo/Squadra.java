@@ -31,20 +31,14 @@ public class Squadra {
         this.carburanteConsumato = carburanteConsumato;   
     }
 
-    public void generaAlbero(ArrayList<ArrayList<Integer>> collegamenti) {
-        ArrayList<Nodo> nodi = new ArrayList<>();
-
-        for (Citta citta : GestorePercorso.getListaCitta()) {
-            nodi.add(new Nodo(citta));
-        }
+    public void generaAlbero(ArrayList<Nodo> nodi, ArrayList<ArrayList<Integer>> collegamenti) {
+        campoBase = nodi.get(0);
 
         for (Nodo nodo : nodi) {
             for (Integer collegamento : collegamenti.get(nodi.indexOf(nodo))) {
                 nodo.aggiungiArco(nodi.get(collegamento), pesoCollegamento(nodo, nodi.get(collegamento)));
             }
         }
-
-        campoBase = nodi.get(0);
     }
 
     public double pesoCollegamento(Nodo partenza, Nodo arrivo) {
