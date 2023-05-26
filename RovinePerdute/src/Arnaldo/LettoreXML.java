@@ -17,14 +17,20 @@ import javax.xml.stream.XMLStreamReader;
 public class LettoreXML {
 
     public static final String NOME_FILE_CITTA = "PgAr_Map_12.xml";
-    public static String percorsoFileCitta;
+    private static String percorsoFileCitta;
+
+    public static String getPercorsoFileCitta() {
+        return percorsoFileCitta;
+    }
 
     /**
      * Trova il percorso assoluto del file LettoreXML.class. 
      * In questo modo, da qualunque parte si esegua il codice si riuscirà sempre a trovare il percorso corretto e, quindi, ad orientarsi all'interno delle cartelle del progetto.
      */
     public static String nonCapiscoPercheJavaRendaCosiComplicatoPrendereIlPercorsoAssolutoDelFileCheSiStaEseguendo() {
-        URL percorsoDiQuestoFile = LettoreXML.class.getResource("LettoreXML.class");
+        //URL percorsoDiQuestoFile = LettoreXML.class.getResource("LettoreXML.class");
+
+        URL percorsoDiQuestoFile = LettoreXML.class.getProtectionDomain().getCodeSource().getLocation();
 
         if (!"file".equalsIgnoreCase(percorsoDiQuestoFile.getProtocol())) {
             throw new IllegalStateException("La classe 'lettoreXML' non è contenuta in alcun file");
@@ -48,11 +54,10 @@ public class LettoreXML {
     }
 
     /**
-     * Restituisce i collegamenti di ogni città con le altre
-     * @return ArrayList<ArratList<Integer>> collegamenti
+     * Legge il file XML e riempie una lista di città e una con i collegamenti presenti tra esse
      */
-    public static ArrayList<ArrayList<Integer>> leggiCitta() {
-        ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
+    public static void leggiCitta() {
+        //ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
 
         String nome = "";
         int id = 0, x, y, h, contatore = -1;
@@ -66,7 +71,7 @@ public class LettoreXML {
         try {
             xmlif = XMLInputFactory.newInstance();
             xmlr = xmlif.createXMLStreamReader(percorsoFileCitta, new FileInputStream(percorsoFileCitta));
-        } catch (FileNotFoundException | XMLStreamException e) {
+        } catch (FileNotFoundException | XMLStreamException e) {          //FileNotFoundException ?? xmlr risulta null 
             System.out.println("Errore nell'inizializzazione del reader:");
             System.out.println(e.getMessage());
         }
@@ -86,12 +91,12 @@ public class LettoreXML {
                             coordinate = new Coordinate(x, y, h);
                             cittaDaInserire = new Citta(id, nome, coordinate);
                             GestorePercorso.aggiungiCitta(cittaDaInserire);
-                            listaCollegamenti.add(new ArrayList<>());
+                            GestorePercorso.getListaCollegamenti().add(new ArrayList<>());
                             contatore++;
                             break;
 
                         case "link":
-                            listaCollegamenti.get(contatore).add(Integer.parseInt(xmlr.getAttributeValue(0)));
+                            GestorePercorso.getListaCollegamenti().get(contatore).add(Integer.parseInt(xmlr.getAttributeValue(0)));
                             break;
 
                         default:
@@ -105,7 +110,7 @@ public class LettoreXML {
             System.out.println(e.getMessage());
         }
 
-        return listaCollegamenti;
+        //return listaCollegamenti;
     }
 
 }

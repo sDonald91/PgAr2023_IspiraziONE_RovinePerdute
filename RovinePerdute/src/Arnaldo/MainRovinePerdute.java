@@ -1,17 +1,20 @@
 package Arnaldo;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainRovinePerdute {
     public static void main(String[] args) {
         LettoreXML.impostaPercorsoFileCitta();
-        ArrayList<ArrayList<Integer>> listaCitta = LettoreXML.leggiCitta();
+        LettoreXML.leggiCitta();
+
         Squadra tonatiuh = new Squadra("Tonatiuh");
         Squadra metztli = new Squadra("Metztli");
-        tonatiuh.generaAlbero(listaCitta);
-        metztli.generaAlbero(listaCitta);
+    
+        tonatiuh.generaAlbero(GestorePercorso.getListaCollegamenti());
+        metztli.generaAlbero(GestorePercorso.getListaCollegamenti());
 
-/*         System.out.println("\n");
+         System.out.println("\n");
 
         for (Nodo nodo : tonatiuh.getCampoBase().getArchi().keySet()) {
             System.out.println(nodo.getCitta().getNome() + ": " + tonatiuh.getCampoBase().getArchi().get(nodo));

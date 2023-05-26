@@ -39,6 +39,7 @@ public class Nodo {
     public Citta getCitta() {
         return citta;
     }
+    
     /**
     * Aggiunge un arco con il corrispettivo peso all'elenco dei collegamenti
     * @param nodo

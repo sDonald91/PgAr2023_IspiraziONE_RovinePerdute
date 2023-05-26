@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class GestorePercorso {
 
     private static ArrayList<Citta> listaCitta = new ArrayList<>();
+    private static ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
+
 
     public static ArrayList<Citta> getListaCitta() {
         return listaCitta;
@@ -15,6 +17,14 @@ public class GestorePercorso {
 
     public static void setListaCitta(ArrayList<Citta> listaCitta) {
         GestorePercorso.listaCitta = listaCitta;
+    }
+
+    public static ArrayList<ArrayList<Integer>> getListaCollegamenti() {
+        return listaCollegamenti;
+    }
+
+    public static void setListaCollegamenti(ArrayList<ArrayList<Integer>> listaCollegamenti) {
+        GestorePercorso.listaCollegamenti = listaCollegamenti;
     }
 
     /**
