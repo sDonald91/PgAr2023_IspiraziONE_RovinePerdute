@@ -59,6 +59,12 @@ public class Squadra {
         }
     }
 
+    /**
+     * Calcola il peso del collegamento tra due nodi
+     * @param partenza primo nodo
+     * @param arrivo secondo nodo
+     * @return peso collegamento
+     */
     public double pesoCollegamento(Nodo partenza, Nodo arrivo) {
         if (this.nome.equals("Tonatiuh")) {
             return partenza.getCitta().distanza(arrivo.getCitta());

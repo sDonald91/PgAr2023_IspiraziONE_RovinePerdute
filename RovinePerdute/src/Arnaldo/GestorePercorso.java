@@ -56,7 +56,7 @@ public class GestorePercorso {
         /* Si itera su tutti i nodi in Q, prendendo di volta in volta il nodo T che, rispetto agli altri nodi di Q, ha distanza minore
         dall’origine. La precedenza è importantissima per il principio di ottimalità */
         while (listaNodi.size() > 0) {
-            for (Nodo nodo : squadra.getListaNodi()) {
+            for (Nodo nodo : squadra.getListaNodi()) {   //per ciclare usiamo la lista della squadra di modo che non si creino problemi andando ad eliminare i nodi
                 for (Nodo nodoVicino: nodo.getArchi().keySet()) {
                     double distanzaOrigine = distanzeMinimeDaOrigine.get(nodo).get(nodoVicino);
                     calc_dist = distanzaOrigine + nodo.pesoArco(nodoVicino);
