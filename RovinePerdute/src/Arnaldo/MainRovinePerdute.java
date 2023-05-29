@@ -25,5 +25,22 @@ public class MainRovinePerdute {
         for (Nodo nodo : metztli.getCampoBase().getArchi().keySet()) {
             System.out.println(nodo.getCitta().getNome() + ": " + metztli.getCampoBase().getArchi().get(nodo));
         }
+
+        System.out.println("\n\n");
+
+        System.out.println("Percorso ottimale per " + tonatiuh.getNome());
+        for (String citta : GestorePercorso.calcolaPercorsoOttimale(tonatiuh)) {
+            System.out.println(citta);
+        }
+        System.out.println("Carburante consumato: " + tonatiuh.getCarburanteConsumato());
+
+        System.out.println("\n\n");
+
+        System.out.println("Percorso ottimale per " + metztli.getNome());
+        for (String citta : GestorePercorso.calcolaPercorsoOttimale(metztli)) {
+            System.out.println(citta);
+        }
+        System.out.println("Carburante consumato: " + metztli.getCarburanteConsumato());
+
     }
 }

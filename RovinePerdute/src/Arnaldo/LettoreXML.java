@@ -13,7 +13,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class LettoreXML {
 
-    public static final String NOME_FILE_CITTA = "PgAr_Map_12.xml";
+    public static final String NOME_FILE_CITTA = "PgAr_Map_5.xml";
     private static String percorsoFileCitta;
 
     public static String getPercorsoFileCitta() {
