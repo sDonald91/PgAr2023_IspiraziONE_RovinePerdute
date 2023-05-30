@@ -29,16 +29,16 @@ public class MainRovinePerdute {
         System.out.println("\n\n");
 
         System.out.println("Percorso ottimale per " + tonatiuh.getNome());
-        for (String citta : GestorePercorso.calcolaPercorsoOttimale(tonatiuh)) {
-            System.out.println(citta);
+        for (Citta citta : GestorePercorso.calcolaPercorsoOttimaleOttimizzato(tonatiuh)) {
+            System.out.println(citta.getId() + "\t" + citta.getNome());
         }
         System.out.println("Carburante consumato: " + tonatiuh.getCarburanteConsumato());
 
         System.out.println("\n\n");
 
         System.out.println("Percorso ottimale per " + metztli.getNome());
-        for (String citta : GestorePercorso.calcolaPercorsoOttimale(metztli)) {
-            System.out.println(citta);
+        for (Citta citta : GestorePercorso.calcolaPercorsoOttimaleOttimizzato(metztli)) {
+            System.out.println(citta.getId() + "\t" + citta.getNome());
         }
         System.out.println("Carburante consumato: " + metztli.getCarburanteConsumato());
 

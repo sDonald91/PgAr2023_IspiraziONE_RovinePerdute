@@ -84,6 +84,76 @@ public class GestorePercorso {
 
         return percorsoOttimale.toArray(new String[percorsoOttimale.size()]);
     }
+
+    public static Citta[] calcolaPercorsoOttimaleOttimizzato(Squadra squadra) {
+        int dimensione = squadra.getListaNodi().size();
+        Nodo[] listaNodiCopia = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
+        Nodo[] nodiT = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
+        Nodo[] nodiPrecedenti = new Nodo[dimensione];
+        double[] distanzeOrigine = new double[dimensione];
+        Nodo nodoConDistanzaMinore;
+        double distanzaMinore, distanza;
+        int indiceNodoMinore, indiceVicino;
+        ArrayList<Citta> percorsoOttimale = new ArrayList<>();
+        Nodo campoBase = squadra.getCampoBase();
+        Nodo iteratore = listaNodiCopia[dimensione - 1];
+
+        distanzeOrigine[0] = 0.0;
+
+        for (int i = 1; i < dimensione; i++) {
+            distanzeOrigine[i] = Double.MAX_VALUE;
+        }
+
+        while (listaNodiCopia[dimensione - 1] != null) {
+            indiceNodoMinore = dimensione - 1;
+            distanzaMinore = distanzeOrigine[indiceNodoMinore];
+            for (int i = 0; i < dimensione; i++) {
+                if (listaNodiCopia[i] != null && distanzeOrigine[i] < distanzaMinore) {
+                    indiceNodoMinore = i;
+                    distanzaMinore = distanzeOrigine[indiceNodoMinore];
+                }
+            }
+            nodoConDistanzaMinore = nodiT[indiceNodoMinore];
+            for (Nodo vicino : nodoConDistanzaMinore.getArchi().keySet()) {
+                distanza = distanzaMinore + nodoConDistanzaMinore.pesoArco(vicino);
+
+                indiceVicino = vicino.getCitta().getId();
+
+/*                 indiceVicino = 0;
+                for (int i = 0; i < dimensione; i++) {
+                    if (nodiT[i].equals(vicino)) {
+                        indiceVicino = i;
+                        break;
+                    }
+                } */
+
+                if (distanza < distanzeOrigine[indiceVicino]) {
+                    distanzeOrigine[indiceVicino] = distanza;
+                    nodiPrecedenti[indiceVicino] = nodoConDistanzaMinore;
+                }
+            }
+            listaNodiCopia[indiceNodoMinore] = null;
+        }
+
+        squadra.setCarburanteConsumato(distanzeOrigine[dimensione - 1]);
+
+        while (iteratore != campoBase) {
+            percorsoOttimale.add(0, iteratore.getCitta());
+
+            iteratore = nodiPrecedenti[iteratore.getCitta().getId()];
+
+/*             for (int i = 0; i < dimensione; i++) {
+                if (nodiT[i].equals(iteratore)) {
+                    iteratore = nodiPrecedenti[i];
+                    break;
+                }
+            } */
+        }
+
+        percorsoOttimale.add(0, iteratore.getCitta());
+
+        return percorsoOttimale.toArray(new Citta[percorsoOttimale.size()]);
+    }
     
 
     public static String[] calcolaPercorsoOttimaleSbagliato(Squadra squadra) {    
