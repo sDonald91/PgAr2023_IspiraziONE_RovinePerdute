@@ -37,10 +37,56 @@ public class GestorePercorso {
     public static void aggiungiCitta(Citta citta) {
         listaCitta.add(citta);
     }
-     
+    
+    public static String[] calcolaPercorsoOttimale(Squadra squadra) {
+        ArrayList<Nodo> listaNodiCopia = new ArrayList<>(squadra.getListaNodi());
+        HashMap<Nodo, NodiDistanze> tabella = new HashMap<>();
+        NodiDistanze nodoConDistanzaMinore;
+        double distanza;
+        ArrayList<String> percorsoOttimale = new ArrayList<>();
+        Nodo campoBase = squadra.getCampoBase();
+        Nodo iteratore = listaNodiCopia.get(listaNodiCopia.size() - 1);
+
+        tabella.put(campoBase, new NodiDistanze(campoBase, null, 0.0));
+
+        for (int i = 0; i < listaNodiCopia.size() - 1; i++) {
+            Nodo nodoPrecedente = listaNodiCopia.get(i);
+            Nodo nodo = listaNodiCopia.get(i + 1);
+            tabella.put(nodo, new NodiDistanze(nodo, nodoPrecedente, Double.MAX_VALUE));
+        }
+
+        while (listaNodiCopia.size() > 0) {
+            nodoConDistanzaMinore = tabella.get(listaNodiCopia.get(0));
+            for (Map.Entry<Nodo, NodiDistanze> riga : tabella.entrySet()) {
+                if (listaNodiCopia.contains(riga.getKey()) && riga.getValue().getDistanzaOrigine() < nodoConDistanzaMinore.getDistanzaOrigine()) {
+                    nodoConDistanzaMinore = riga.getValue();
+                }
+            }
+            for (Nodo vicino : nodoConDistanzaMinore.getNodo().getArchi().keySet()) {
+                distanza = nodoConDistanzaMinore.getDistanzaOrigine() + nodoConDistanzaMinore.getNodo().pesoArco(vicino);
+
+                if (distanza < tabella.get(vicino).getDistanzaOrigine()) {
+                    tabella.get(vicino).setDistanzaOrigine(distanza);
+                    tabella.get(vicino).setNodoPrecedente(nodoConDistanzaMinore.getNodo());
+                }
+            }
+            listaNodiCopia.remove(nodoConDistanzaMinore.getNodo());
+        }
+        
+        squadra.setCarburanteConsumato(tabella.get(iteratore).getDistanzaOrigine());
+
+        while (iteratore != campoBase) {
+            percorsoOttimale.add(0, iteratore.getCitta().getNome());
+            iteratore = tabella.get(iteratore).getNodoPrecedente();
+        }
+
+        percorsoOttimale.add(0, iteratore.getCitta().getNome());
+
+        return percorsoOttimale.toArray(new String[percorsoOttimale.size()]);
+    }
     
 
-    public static String[] calcolaPercorsoOttimale (Squadra squadra) {    
+    public static String[] calcolaPercorsoOttimaleSbagliato(Squadra squadra) {    
         HashMap<Nodo, HashMap<Nodo, Double>> distanzeMinimeDaOrigine = new HashMap<>();
         double distanzaTotale = 0, calc_dist;
         String nomeCitta = "";
