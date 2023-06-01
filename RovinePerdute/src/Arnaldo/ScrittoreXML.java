@@ -5,7 +5,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-/*
+/**
  * Classe static contenente metodi per la generazione e scrittura dei file XML da produrre in output
  */
 public class ScrittoreXML {
