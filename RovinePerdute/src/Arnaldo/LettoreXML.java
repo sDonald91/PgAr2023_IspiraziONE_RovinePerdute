@@ -13,11 +13,15 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class LettoreXML {
 
-    public static final String NOME_FILE_CITTA = "PgAr_Map_10000.xml";
+    public static String nomeFileInput;
     private static String percorsoFileCitta;
-
+    
     public static String getPercorsoFileCitta() {
         return percorsoFileCitta;
+    }
+
+    public static void setNomeFileInput(String _nomeFileInput) {
+        nomeFileInput = _nomeFileInput;
     }
 
     /**
@@ -26,13 +30,13 @@ public class LettoreXML {
      * Sappiamo che non è una bella soluzione, ma cercando assiduamente non siamo comunque riusciti a trovare un modo
      * per ottenere il percorso della root del progetto a prescindere dalla working directory
      */
-    public static void impostaPercorsoFileCitta() {
+    public static void impostaPercorsoFileInput() {
         String percorso = System.getProperty("user.dir");
         if (System.getProperty("os.name").equals("Linux")) {
-            percorsoFileCitta = percorso + "/file_xml/input/" + NOME_FILE_CITTA;
+            percorsoFileCitta = percorso + "/file_xml/input/" + nomeFileInput;
         }
         else {
-            percorsoFileCitta = percorso + "/RovinePerdute/file_xml/input/" + NOME_FILE_CITTA;
+            percorsoFileCitta = percorso + "/RovinePerdute/file_xml/input/" + nomeFileInput;
             
         }
     }
@@ -50,11 +54,14 @@ public class LettoreXML {
         String tag = "";
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
+
+        GestorePercorso.getListaCitta().clear();
+        GestorePercorso.getListaCollegamenti().clear();
         
         try {
             xmlif = XMLInputFactory.newInstance();
             xmlr = xmlif.createXMLStreamReader(percorsoFileCitta, new FileInputStream(percorsoFileCitta));
-        } catch (FileNotFoundException | XMLStreamException e) {          //FileNotFoundException ?? xmlr risulta null 
+        } catch (FileNotFoundException | XMLStreamException e) {
             System.out.println("Errore nell'inizializzazione del reader:");
             System.out.println(e.getMessage());
         }
@@ -73,7 +80,7 @@ public class LettoreXML {
                             h = Integer.parseInt(xmlr.getAttributeValue(4));
                             coordinate = new Coordinate(x, y, h);
                             cittaDaInserire = new Citta(id, nome, coordinate);
-                            GestorePercorso.aggiungiCitta(cittaDaInserire);
+                            GestorePercorso.getListaCitta().add(cittaDaInserire);
                             GestorePercorso.getListaCollegamenti().add(new ArrayList<>());
                             contatore++;
                             break;
@@ -94,5 +101,4 @@ public class LettoreXML {
         }
 
     }
-
 }

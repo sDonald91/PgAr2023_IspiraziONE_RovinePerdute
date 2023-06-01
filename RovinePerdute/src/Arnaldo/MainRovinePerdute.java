@@ -1,46 +1,33 @@
 package Arnaldo;
 
-public class MainRovinePerdute {
+public class MainRovinePerdute { 
+    
+    public static final String[] LISTA_FILE_INPUT = {"PgAr_Map_5.xml", "PgAr_Map_12.xml", "PgAr_Map_50.xml", "PgAr_Map_200.xml", "PgAr_Map_2000.xml", "PgAr_Map_10000.xml"};
+    public static final String[] LISTA_FILE_OUTPUT = {"Routes_5.xml", "Routes_12.xml", "Routes_50.xml", "Routes_200.xml", "Routes_2000.xml", "Routes_10000.xml"};
+    
     public static void main(String[] args) {
-
-        LettoreXML.impostaPercorsoFileCitta();
-        LettoreXML.leggiCitta();
-        
-        System.out.println(LettoreXML.getPercorsoFileCitta());
 
         Squadra tonatiuh = new Squadra("Tonatiuh");
         Squadra metztli = new Squadra("Metztli");
-        tonatiuh.riempiListaNodi();
-        metztli.riempiListaNodi();
 
-        tonatiuh.generaAlbero(GestorePercorso.getListaCollegamenti());
-        metztli.generaAlbero(GestorePercorso.getListaCollegamenti());
+        for (int i = 0; i < LISTA_FILE_INPUT.length; i++) {
+            System.out.print(String.format("%-20s", LISTA_FILE_OUTPUT[i]));
+            LettoreXML.setNomeFileInput(LISTA_FILE_INPUT[i]); 
+            ScrittoreXML.setNomeFileOutput(LISTA_FILE_OUTPUT[i]);
 
-         System.out.println("\n");
+            LettoreXML.impostaPercorsoFileInput();
+            ScrittoreXML.impostaPercorsoFileOutput();
+            LettoreXML.leggiCitta();
 
-        for (Nodo nodo : tonatiuh.getCampoBase().getArchi().keySet()) {
-            System.out.println(nodo.getCitta().getNome() + ": " + tonatiuh.getCampoBase().getArchi().get(nodo));
+            tonatiuh.riempiListaNodi();
+            metztli.riempiListaNodi();
+
+            tonatiuh.generaAlbero(GestorePercorso.getListaCollegamenti());
+            metztli.generaAlbero(GestorePercorso.getListaCollegamenti());
+
+            ScrittoreXML.generaFileOutput(new Squadra[] { tonatiuh, metztli });
+            System.out.println("FATTO");
         }
-        System.out.println("\n");
-        for (Nodo nodo : metztli.getCampoBase().getArchi().keySet()) {
-            System.out.println(nodo.getCitta().getNome() + ": " + metztli.getCampoBase().getArchi().get(nodo));
-        }
-
-        System.out.println("\n\n");
-
-        System.out.println("Percorso ottimale per " + tonatiuh.getNome());
-        for (Citta citta : GestorePercorso.calcolaPercorsoOttimale(tonatiuh)) {
-            System.out.println(citta.getId() + "\t" + citta.getNome());
-        }
-        System.out.println("Carburante consumato: " + tonatiuh.getCarburanteConsumato());
-
-        System.out.println("\n\n");
-
-        System.out.println("Percorso ottimale per " + metztli.getNome());
-        for (Citta citta : GestorePercorso.calcolaPercorsoOttimale(metztli)) {
-            System.out.println(citta.getId() + "\t" + citta.getNome());
-        }
-        System.out.println("Carburante consumato: " + metztli.getCarburanteConsumato());
 
     }
 }

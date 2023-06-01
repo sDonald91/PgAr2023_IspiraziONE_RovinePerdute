@@ -28,7 +28,7 @@ public class Squadra {
         return carburanteConsumato;
     }
 
-    public void setCarburanteConsumato(double carburanteConsumato) { //necessario?
+    public void setCarburanteConsumato(double carburanteConsumato) {
         this.carburanteConsumato = carburanteConsumato;   
     }
 
@@ -44,6 +44,7 @@ public class Squadra {
      * Crea tutti i nodi associati alle città
      */
     public void riempiListaNodi() {
+        listaNodi.clear();
         for (Citta citta : GestorePercorso.getListaCitta()) {
             listaNodi.add(new Nodo(citta));
         }

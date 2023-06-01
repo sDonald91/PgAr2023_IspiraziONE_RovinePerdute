@@ -26,28 +26,22 @@ public class GestorePercorso {
         GestorePercorso.listaCollegamenti = listaCollegamenti;
     }
 
-
     /**
-     * Aggiunge una città alla lista delle città dell'albero
-     * @param citta da aggiungere
+     * Calcola e restituisce l'elenco di città che permetta di arrivare a Rovine Perdute consumando meno carburante 
      */
-    public static void aggiungiCitta(Citta citta) {
-        listaCitta.add(citta);
-    }
-    
     public static Citta[] calcolaPercorsoOttimale(Squadra squadra) {
         int dimensione = squadra.getListaNodi().size();
         Nodo[] listaNodiCopia = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
         Nodo[] nodiT = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
         Nodo[] nodiPrecedenti = new Nodo[dimensione];
-        double[] distanzeOrigine = new double[dimensione];
         Nodo nodoConDistanzaMinore;
+        Nodo campoBase = squadra.getCampoBase();
+        Nodo iteratore = listaNodiCopia[dimensione - 1];
+        double[] distanzeOrigine = new double[dimensione];
         double distanzaMinore, distanza;
         int indiceNodoMinore, indiceVicino;
         ArrayList<Citta> percorsoOttimale = new ArrayList<>();
-        Nodo campoBase = squadra.getCampoBase();
-        Nodo iteratore = listaNodiCopia[dimensione - 1];
-
+        
         distanzeOrigine[0] = 0.0;
 
         for (int i = 1; i < dimensione; i++) {
