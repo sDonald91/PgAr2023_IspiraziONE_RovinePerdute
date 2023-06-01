@@ -12,6 +12,10 @@ public class Squadra {
     private double carburanteConsumato;
     private ArrayList<Nodo> listaNodi = new ArrayList<>();
     
+    /**
+     * Costruttore squadra
+     * @param nome
+     */
     public Squadra(String nome){
         this.nome = nome;
     }
@@ -36,10 +40,6 @@ public class Squadra {
         return listaNodi;
     }
 
-    public void setListaNodi(ArrayList<Nodo> listaNodi) {
-        this.listaNodi = listaNodi;
-    }
-
     /**
      * Crea tutti i nodi associati alle città
      */
@@ -50,6 +50,10 @@ public class Squadra {
         }
     }
 
+    /**
+     * Riempie l'HashMap di ogni nodo con i suoi collegamenti e il rispettivo peso
+     * @param collegamenti tra nodi
+     */
     public void generaAlbero( ArrayList<ArrayList<Integer>> collegamenti) {
         campoBase = listaNodi.get(0);
 
@@ -77,5 +81,4 @@ public class Squadra {
 
         return -1;
     }
-    
 }

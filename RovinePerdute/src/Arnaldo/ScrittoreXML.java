@@ -5,6 +5,9 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+/*
+ * Classe static contenente metodi per la generazione e scrittura dei file XML da produrre in output
+ */
 public class ScrittoreXML {
     
     private static String PercorsoFileOutput;
@@ -19,18 +22,6 @@ public class ScrittoreXML {
             PercorsoFileOutput = percorso + "/RovinePerdute/file_xml/output/" + nomeFileOutput;   
         }
     }
-
-    public static String getPercorsoFileOutput() {
-		return PercorsoFileOutput;
-	}
-
-	public static void setPercorsoFileOutput(String percorsoFileOutput) {
-		PercorsoFileOutput = percorsoFileOutput;
-	}
-
-	public static String getNomeFileOutput() {
-		return nomeFileOutput;
-	}
 
 	public static void setNomeFileOutput(String nomeFileOutput) {
 		ScrittoreXML.nomeFileOutput = nomeFileOutput;
@@ -61,14 +52,12 @@ public class ScrittoreXML {
                 xmlw.writeStartElement("route");
                 xmlw.writeAttribute("team", squadre[i].getNome());
                 xmlw.writeAttribute("cost", String.format("%.2f", squadre[i].getCarburanteConsumato()));
-                //String.valueOf(squadre[i].getCarburanteConsumato()));
                 xmlw.writeAttribute("cities", String.valueOf(percorsiSquadre[i].length));
 
                 for (int j = 0; j < percorsiSquadre[i].length; j++) {
                     xmlw.writeStartElement("city");
                     xmlw.writeAttribute("id", String.valueOf(percorsiSquadre[i][j].getId()));
                     xmlw.writeAttribute("nome", percorsiSquadre[i][j].getNome());
-
                     xmlw.writeEndElement(); // </city>
                 }
 
@@ -79,12 +68,10 @@ public class ScrittoreXML {
             xmlw.writeEndDocument();
             xmlw.flush();
             xmlw.close();
-        
+
         } catch (XMLStreamException e) {
             System.out.println("Errore nella generazione del file");
             System.out.println(e.getMessage());
         }
     }
-
-
 }

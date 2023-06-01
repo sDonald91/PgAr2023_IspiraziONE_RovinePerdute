@@ -29,18 +29,13 @@ public class Citta {
         return nome;
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
-    }
-
     /**
      * Calcola distanza euclidea tra due città
      * @param citta
      * @return distanza
      */
     public double distanza(Citta citta) {
-        double distanza = this.coordinate.calcolaDistanza(citta.coordinate);
-        return distanza;
+        return this.coordinate.calcolaDistanza(citta.coordinate);
     }
 
     /**
@@ -49,7 +44,6 @@ public class Citta {
      * @return differenza di altitudine
      */
     public double dislivello(Citta citta) {
-        double dislivello = this.coordinate.calcolaDislivello(citta.coordinate);
-        return dislivello;
+        return this.coordinate.calcolaDislivello(citta.coordinate);
     }
 }  

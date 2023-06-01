@@ -48,6 +48,5 @@ public class Coordinate {
      */
     public double calcolaDislivello(Coordinate coordinate) {
         return Math.abs(h - coordinate.getH());
-    }
-        
+    }  
 }

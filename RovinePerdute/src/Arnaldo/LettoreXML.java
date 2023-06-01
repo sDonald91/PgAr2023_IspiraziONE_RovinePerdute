@@ -3,7 +3,6 @@ package Arnaldo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -16,20 +15,16 @@ public class LettoreXML {
     public static String nomeFileInput;
     private static String percorsoFileCitta;
     
-    public static String getPercorsoFileCitta() {
-        return percorsoFileCitta;
-    }
-
     public static void setNomeFileInput(String _nomeFileInput) {
         nomeFileInput = _nomeFileInput;
     }
 
     /**
-     * Assegna alla variabile "percorsoFileCitta" il valore del percorso del file delle città che si vuole leggere
-     * 
-     * Sappiamo che non è una bella soluzione, ma cercando assiduamente non siamo comunque riusciti a trovare un modo
-     * per ottenere il percorso della root del progetto a prescindere dalla working directory
-     */
+    * Assegna alla variabile "percorsoFileCitta" il valore del percorso del file delle città che si vuole leggere
+    */ 
+    /* Sappiamo che non è una bella soluzione, ma cercando assiduamente non siamo comunque riusciti a trovare un modo
+    per ottenere il percorso della root del progetto a prescindere dalla working directory */
+    
     public static void impostaPercorsoFileInput() {
         String percorso = System.getProperty("user.dir");
         if (System.getProperty("os.name").equals("Linux")) {
@@ -42,7 +37,7 @@ public class LettoreXML {
     }
 
     /**
-     * Legge il file XML e riempie una lista di città e una con i collegamenti presenti tra esse
+     * Legge il file XML e riempie una lista con le città e una con i collegamenti presenti tra esse
      */
     public static void leggiCitta() {
 
@@ -99,6 +94,5 @@ public class LettoreXML {
         catch (XMLStreamException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

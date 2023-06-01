@@ -9,25 +9,16 @@ public class GestorePercorso {
     private static ArrayList<Citta> listaCitta = new ArrayList<>();
     private static ArrayList<ArrayList<Integer>> listaCollegamenti = new ArrayList<>();
     
-
     public static ArrayList<Citta> getListaCitta() {
         return listaCitta;
-    }
-
-    public static void setListaCitta(ArrayList<Citta> listaCitta) {
-        GestorePercorso.listaCitta = listaCitta;
     }
 
     public static ArrayList<ArrayList<Integer>> getListaCollegamenti() {
         return listaCollegamenti;
     }
 
-    public static void setListaCollegamenti(ArrayList<ArrayList<Integer>> listaCollegamenti) {
-        GestorePercorso.listaCollegamenti = listaCollegamenti;
-    }
-
     /**
-     * Calcola e restituisce l'elenco di città che permetta di arrivare a Rovine Perdute consumando meno carburante 
+     * Calcola e restituisce l'elenco di città che permetta di arrivare a Rovine Perdute consumando il minimo carburante 
      */
     public static Citta[] calcolaPercorsoOttimale(Squadra squadra) {
         int dimensione = squadra.getListaNodi().size();
@@ -81,6 +72,5 @@ public class GestorePercorso {
         percorsoOttimale.add(0, iteratore.getCitta());
 
         return percorsoOttimale.toArray(new Citta[percorsoOttimale.size()]);
-    }
-    
+    }   
 }

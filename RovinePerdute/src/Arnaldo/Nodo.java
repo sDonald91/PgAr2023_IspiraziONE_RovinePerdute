@@ -11,16 +11,6 @@ public class Nodo {
     private Citta citta;
 
     /**
-     * Costruttore 1
-     * @param archi
-     * @param citta
-     */
-    public Nodo (HashMap<Nodo, Double> archi, Citta citta) {
-        this.archi = archi;
-        this.citta = citta;
-    }
-
-    /**
      * Costruttore con la sola città
      * @param citta corrispondente al nodo
      */
@@ -30,10 +20,6 @@ public class Nodo {
 
     public HashMap<Nodo, Double> getArchi() {
         return archi;
-    }
-
-    public void setArchi(HashMap<Nodo, Double> archi) {
-        this.archi = archi;
     }
 
     public Citta getCitta() {
@@ -57,24 +43,5 @@ public class Nodo {
     public double pesoArco(Nodo nodo) {
         double pesoArco = archi.get(nodo);
         return pesoArco;
-    }
-
-    /**
-     * Equals tra due nodi
-     * @param nodo
-     * @return
-     */
-    public boolean equals(Nodo nodo) {
-        if (this.citta.equals(nodo.getCitta()) && this.archi.equals(nodo.getArchi())) {    //metodi equals per città da definire?
-            return true;
-        }
-        return false;
-    }
-
-    public boolean equals(String nome) {
-        if (this.citta.getNome().equals(nome)) {
-            return true;
-        }
-        return false;
     }
 }
