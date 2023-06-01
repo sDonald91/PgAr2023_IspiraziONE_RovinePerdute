@@ -22,6 +22,9 @@ public class LettoreXML {
 
     /**
      * Assegna alla variabile "percorsoFileCitta" il valore del percorso del file delle città che si vuole leggere
+     * 
+     * Sappiamo che non è una bella soluzione, ma cercando assiduamente non siamo comunque riusciti a trovare un modo
+     * per ottenere il percorso della root del progetto a prescindere dalla working directory
      */
     public static void impostaPercorsoFileCitta() {
         String percorso = System.getProperty("user.dir");

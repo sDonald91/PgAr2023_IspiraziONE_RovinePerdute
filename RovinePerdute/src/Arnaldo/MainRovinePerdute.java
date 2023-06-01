@@ -29,7 +29,7 @@ public class MainRovinePerdute {
         System.out.println("\n\n");
 
         System.out.println("Percorso ottimale per " + tonatiuh.getNome());
-        for (Citta citta : GestorePercorso.calcolaPercorsoOttimaleOttimizzato(tonatiuh)) {
+        for (Citta citta : GestorePercorso.calcolaPercorsoOttimale(tonatiuh)) {
             System.out.println(citta.getId() + "\t" + citta.getNome());
         }
         System.out.println("Carburante consumato: " + tonatiuh.getCarburanteConsumato());
@@ -37,7 +37,7 @@ public class MainRovinePerdute {
         System.out.println("\n\n");
 
         System.out.println("Percorso ottimale per " + metztli.getNome());
-        for (Citta citta : GestorePercorso.calcolaPercorsoOttimaleOttimizzato(metztli)) {
+        for (Citta citta : GestorePercorso.calcolaPercorsoOttimale(metztli)) {
             System.out.println(citta.getId() + "\t" + citta.getNome());
         }
         System.out.println("Carburante consumato: " + metztli.getCarburanteConsumato());

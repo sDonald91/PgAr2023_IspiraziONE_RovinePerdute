@@ -35,7 +35,7 @@ public class GestorePercorso {
         listaCitta.add(citta);
     }
     
-    public static Citta[] calcolaPercorsoOttimaleOttimizzato(Squadra squadra) {
+    public static Citta[] calcolaPercorsoOttimale(Squadra squadra) {
         int dimensione = squadra.getListaNodi().size();
         Nodo[] listaNodiCopia = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
         Nodo[] nodiT = new ArrayList<>(squadra.getListaNodi()).toArray(new Nodo[dimensione]);
