@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Arnaldo","l":"Citta"},{"p":"Arnaldo","l":"Coordinate"},{"p":"Arnaldo","l":"GestorePercorso"},{"p":"Arnaldo","l":"LettoreXML"},{"p":"Arnaldo","l":"MainRovinePerdute"},{"p":"Arnaldo","l":"Nodo"},{"p":"Arnaldo","l":"ScrittoreXML"},{"p":"Arnaldo","l":"Squadra"}];updateSearchResults();
